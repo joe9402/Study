@@ -8,6 +8,4 @@ fun main(){
     println("print a : $a");
     println(abs(-12))
     println(PI)
-
-
 }
