@@ -1,4 +1,4 @@
-package demo;
+package com.example.selfStudy;
 
 import lombok.Builder;
 import lombok.NonNull;
