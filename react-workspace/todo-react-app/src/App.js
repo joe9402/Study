@@ -6,6 +6,7 @@ import Todo from './Todo';
 import {Paper, List, Container} from "@material-ui/core"
 
 import AddTodo from "./AddTodo"
+import { call } from './service/ApiService';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +17,28 @@ class App extends React.Component {
         //{id:1,title:"HIHI3",done:false},
       ],
     };
+  }
+
+ /* componentDidMount() {
+    const requestOptions = {
+      method: "GET",
+      headers: {"Content-Thype" : "application/json"},
+    };
+
+    fetch("http://localhost:8080/todo",requestOptions)
+    .then((response)=> response.json())
+    .then(
+      (response) => {
+        this.setState({
+          items:response.data,
+        });
+      },
+      (error) => {
+        this.setState({
+          error,
+        })
+      }
+    )
   }
 
   //추가 버튼 클릭시 메소드
@@ -36,6 +59,23 @@ class App extends React.Component {
     this.setState({items: newItems},()=>{
       console.log("Update Items : ", this.state.items);
     });
+  }*/
+
+  
+  componentDidMount() {
+    call("/todo","GET",null).then((response) => this.setState({items: response.data}));
+  }
+
+  add = (item) => {
+    call("/todo","POST",item).then((response) => this.setState({items: response.data}));
+  }
+
+  delete = (item) => {
+    call("/todo","DELETE",item).then((response) => this.setState({items: response.data}));
+  }
+
+  update = (item) => {
+    call("/todo","PUT",item).then((response) => this.setState({items: response.data}));
   }
 
   render(){
@@ -43,7 +83,7 @@ class App extends React.Component {
     var todoItems = this.state.items.length > 0 && (
       <Paper style={{margin:16}}>
         <List>
-          {this.state.items.map((item, idx) => (<Todo item={item} key={item.id} delete={this.delete}/>))}
+          {this.state.items.map((item, idx) => (<Todo item={item} key={item.id} delete={this.delete} update={this.update}/>))}
         </List>
       </Paper>
     );
