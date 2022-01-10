@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.member.Member;
@@ -32,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     }*/
 
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
         System.out.println("1 memberRepository : " + memberRepository);
         System.out.println("1 discountPolicy : " + discountPolicy);
         this.memberRepository = memberRepository;
